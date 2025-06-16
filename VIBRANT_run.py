@@ -8,11 +8,20 @@
 
 # Usage: $ python3 VIBRANT_run.py -i <input_file> [options]
 
+
+## modified by Sebastian Sperber
+
 ############################### Imports  #######################################
 import warnings
 warnings.filterwarnings("ignore")
 import sys
-from Bio.SeqIO.FastaIO import SimpleFastaParser
+import os
+
+# Add the VIBRANT base directory to sys.path
+VIBRANT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if VIBRANT_DIR not in sys.path:
+    sys.path.append(VIBRANT_DIR)
+from scripts.fasta_utils import SimpleFastaParser
 from datetime import date
 import datetime
 import argparse
@@ -891,7 +900,7 @@ try:
 		y_list = principalDf['principal component 2'].tolist()
 		indicesToKeep = finalDf['scaffold']
 		fig, ax = plt.subplots()
-		plt.style.use('seaborn-white')
+		plt.style.use('seaborn-v0_8-white')
 		ax.set_xlabel('Principal Component 1', fontsize = 15)
 		ax.set_ylabel('Principal Component 2', fontsize = 15)
 
