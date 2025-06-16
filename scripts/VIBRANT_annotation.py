@@ -11,16 +11,29 @@
 import warnings
 warnings.filterwarnings("ignore")
 import sys
+import sklearn.neural_network._multilayer_perceptron as mlp
+import sklearn.preprocessing._label as label
+from sklearn import preprocessing
+from sklearn.metrics import classification_report,confusion_matrix
+
+# Alias alte Modulpfade auf moderne interne Pfade
+sys.modules['sklearn.neural_network.multilayer_perceptron'] = mlp
+sys.modules['sklearn.preprocessing.label'] = label
+
 import pandas as pd
 import argparse
 import subprocess
-from Bio.SeqIO.FastaIO import SimpleFastaParser
+import os
+
+# Add the VIBRANT base directory to sys.path
+VIBRANT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if VIBRANT_DIR not in sys.path:
+    sys.path.append(VIBRANT_DIR)
+from scripts.fasta_utils import SimpleFastaParser
 from collections import OrderedDict
 import math
 import numpy as np
-from sklearn import preprocessing
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import classification_report,confusion_matrix
+
 import pickle
 import logging
 
