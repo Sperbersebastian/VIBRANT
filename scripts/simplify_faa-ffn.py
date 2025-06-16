@@ -7,7 +7,13 @@
 # Usage: python3 simplify_faa-ffn.py <input.faa>
 
 import sys
-from Bio.SeqIO.FastaIO import SimpleFastaParser as SFP
+import os
+
+# Add the VIBRANT base directory to sys.path
+VIBRANT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if VIBRANT_DIR not in sys.path:
+    sys.path.append(VIBRANT_DIR)
+from scripts.fasta_utils import SimpleFastaParser as SFP
 
 infile = sys.argv[1] # input fasta file
 
