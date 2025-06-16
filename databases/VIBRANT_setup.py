@@ -172,7 +172,12 @@ if args.test == True:
 
 try:
     import sys
-    from Bio.SeqIO.FastaIO import SimpleFastaParser
+    import os
+    # Add the VIBRANT base directory to sys.path
+    VIBRANT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    if VIBRANT_DIR not in sys.path:
+        sys.path.append(VIBRANT_DIR)
+    from scripts.fasta_utils import SimpleFastaParser
     from datetime import date
     import argparse
     import subprocess
@@ -205,21 +210,21 @@ except Exception as e:
     exit()
 
 error = 0
-if str(sklearn.__version__) != '0.21.3':
-    if int(str(sklearn.__version__).split(".")[1]) > 21 or int(str(sklearn.__version__).split(".")[2]) > 3:
+if str(sklearn.__version__) != '1.6.0':
+    if int(str(sklearn.__version__).split(".")[0]) > 1 or int(str(sklearn.__version__).split(".")[2]) > 6:
         logging.info('')
-        logging.info('VIBRANT Caution: running a version of Scikit-Learn higher than v0.21.3 may cause issues. With pip you can update by running "pip install --upgrade scikit-learn==0.21.3".')
-        logging.info('')
-        error += 1
-    elif int(str(sklearn.__version__).split(".")[1]) < 21 or int(str(sklearn.__version__).split(".")[2]) < 3:
-        logging.info('')
-        logging.info('VIBRANT Caution: running a version of Scikit-Learn lower than v0.21.3 will likely cause issues. With pip you can update by running "pip install --upgrade scikit-learn==0.21.3".')
+        logging.info('VIBRANT Caution: running a version of Scikit-Learn higher than v1.6.0 may cause issues. With pip you can update by running "pip install --upgrade scikit-learn==0.21.3".')
         logging.info('')
         error += 1
-if str(np.version.version) != '1.17.0':
-    if int(str(np.version.version).split(".")[0]) < 1 or int(str(np.version.version).split(".")[1]) < 17:
+    elif int(str(sklearn.__version__).split(".")[0]) < 1 or int(str(sklearn.__version__).split(".")[1]) < 6:
         logging.info('')
-        logging.info('VIBRANT Caution: running a version of Numpy lower than v1.17.0 will likely cause issues. With pip you can update by running "pip install --upgrade numpy==1.17.0".')
+        logging.info('VIBRANT Caution: running a version of Scikit-Learn lower than v1.6.0 will likely cause issues. With pip you can update by running "pip install --upgrade scikit-learn==0.21.3".')
+        logging.info('')
+        error += 1
+if str(np.version.version) != '2.0.2':
+    if int(str(np.version.version).split(".")[0]) < 2 or int(str(np.version.version).split(".")[1]) < 0:
+        logging.info('')
+        logging.info('VIBRANT Caution: running a version of Numpy lower than v2.0.2 will likely cause issues. With pip you can update by running "pip install --upgrade numpy==1.17.0".')
         logging.info('')
         error += 1
 
