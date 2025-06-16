@@ -8,7 +8,13 @@
 # Usage: see VIBRANT_run.py
 
 import sys
-from Bio.SeqIO.FastaIO import SimpleFastaParser
+import os
+
+# Add the VIBRANT base directory to sys.path
+VIBRANT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if VIBRANT_DIR not in sys.path:
+    sys.path.append(VIBRANT_DIR)
+from scripts.fasta_utils import SimpleFastaParser
 import subprocess
 
 db_dict = {}
